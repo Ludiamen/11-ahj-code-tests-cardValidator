@@ -1,3 +1,7 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/c8fs03saddimp84g?svg=true)](https://ci.appveyor.com/project/Ludiamen/11-ahj-code-tests-cardvalidator)
+
+[Сcылка на GitHub Pages](https://ludiamen.github.io/11-ahj-code-tests-cardValidator/)
+
 Правила сдачи задания:
 
 1. **Важно**: в рамках этого ДЗ можно использовать любой менеджер пакетов.
