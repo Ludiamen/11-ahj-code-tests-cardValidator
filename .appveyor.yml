@@ -1,18 +1,27 @@
-version: '{build}'
-image: Ubuntu1804
+image: Ubuntu2204  # образ для сборки
 
-environment:
-  matrix:
-    - nodejs_version: '22'
+stack: node 20 # окружение
+
+branches:
+  only:
+    - master  # ветка git
+
+cache: node_modules  # кеширование
 
 install:
-  - ps: Install-Product node $env:nodejs_version
-  - npm install -g yarn
-  - yarn install
+  - npm install  # команда установки зависимостей
+
+build: off  # отключаем встроенную в appveyor систему сборки
 
 build_script:
-  - yarn run build
+  - npm run build   # команда сборки
 
 test_script:
-  - yarn run lint
-  - yarn run test
+  - npm run lint && npm test  # скрипт тестирования
+
+deploy_script:  # скрипт развёртывания
+  - git config --global credential.helper store
+  - git config --global user.name AppVeyor
+  - git config --global user.email ci@appveyor.com
+  - echo "https://$GITHUB_TOKEN:x-oauth-basic@github.com" > "$HOME/.git-credentials"
+  - npx push-dir --dir=dist --branch=gh-pages --force --verbose
